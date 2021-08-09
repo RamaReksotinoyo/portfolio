@@ -1,4 +1,7 @@
 import os
+import django_heroku 
+import dj_database_url
+from decouple import config
 # from pathlib import Path
 """
 Django settings for portfolio project.
@@ -53,6 +56,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # 'django.contrib.staticfiles',
     # 'blog',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'portfolio.urls'
@@ -129,6 +133,8 @@ STATICFILES_DIRS=[
     # os.path.join(BASE_DIR, 'static')
 ]
 
+STATIC_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
 
@@ -143,3 +149,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'gamechallengecafe@gmail.com'
 EMAIL_HOST_PASSWORD = 'asukabehakuorak'
+
+
+django_heroku.settings(locals())

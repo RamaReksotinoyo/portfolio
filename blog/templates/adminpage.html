@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <br>
+
+    <div class="row">
+        <div class="col-md">
+            <div class="card card-body">
+                <h5>Post:</h5>
+                <hr>
+                <a class="btn btn-outline-success  btn-sm btn-block" href="#posting">Posting</a>
+                <!-- <a class="btn btn-outline-info  btn-sm btn-block" href="/edit_challenge">Update</a> -->
+            </div>
+        </div>
+
+        <div class="col-md">
+            <div class="card card-body">
+                <h5>Contact Information</h5>
+                <hr>
+                <p>Email: </p>
+                <p>Phone: </p>
+            </div>
+        </div>
+
+        <div class="col-md">
+            <div class="card card-body">
+                <h5>Posted</h5>
+                <hr>
+
+                <h1 style="text-align: center;padding: 10px">5</h1>
+                <a class="btn btn-outline-info  btn-sm btn-block" href="#exportcls">Export xls</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md">
+            <div class="card card-body">
+                <table class="table table-sm">
+                    <tr>
+                        <th>Title</th>
+                        <th>Intro</th>
+                        <th>Date Added</th>>
+                    </tr>
+                    {% for thought in thoughts %}
+                        <tr>
+                            <th>{{ thought.title }}</th>
+                            <th>{{ thought.intro }}</th>
+                            <th>{{ thought.date_added }}</th>
+                            <!-- <th>
+                                {% if challenge.gambar %}
+                                    <img src="{{ challenge.gambar.url }}" width="90px">
+                                {% endif %}
+                            </th> -->
+                            <th>
+                                <a href="#hapus_url" class="btn btn-danger" >Delete</a>
+                            </th>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-10">
+
+            <div class="card mb-3">
+                <!-- <img src="{% static 'images/oldsorcererclipart.png' %}" class="card-img-top" > -->
+                <img src="{% static 'images/oldsorcererclipart.png' %}" class="thumbnail img-responsive" style="max-width:20%;">
+                <div class="card-body">
+                <h5 class="card-title"><center>{{thoughts.title}}</center></h5>
+                <p class="card-text">
+                    {{thoughts.body | safe}}
+                </p>
+                <p class="card-text"><small class="text-muted">{{thoughts.date_added}}</small></p>
+                </div>
+                <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+                <div class="container">
+                    <div class="be-comment-block">
+                        {% for comment in post.comments.all  %}
+                            <div class="be-comment">
+                                <div class="be-comment-content">
+                                        <span class="be-comment-name">
+                                            <a href="blog-detail-2.html">{{ comment.name }}}</a>
+                                            </span>
+                                        <span class="be-comment-time">
+                                            <i class="fa fa-clock-o"></i>
+                                            {{comment.date_added}}
+                                        </span>
+                        
+                                        <p class="be-comment-text">
+                                            {{ comment.body }}
+                                        </p>  
+                        {% endfor %}
+                                </div>
+                            </div>
+                        <center>
+                            <div class="notification">
+                                <p>Criticism & Suggestions</p>
+                            </div>
+                        <form method="post" action=".">
+                            {% csrf_token %}
+                    
+                            {{ form.as_p }}
+                    
+                            <div class="field">
+                                <div class="control">
+                                    <button class="button is-success">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </center>
+                    </div>
+                </div>                 
+            </div>
+        </div>
+        <div class="col"></div>
+        </div>
+    </div>
+
+ 
+{% endblock %}

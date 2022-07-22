@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from blog.views import index, home, about, thoughts, thought, login
+from blog.views import index, home, about, thoughts, thought, login, register, dashboard
 from django.contrib.auth.views import LoginView, LogoutView
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -28,4 +30,8 @@ urlpatterns = [
     path('thoughts/thought/<slug:slug>/', thought, name='thought'),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
+    path('register/', register, name='register'),
+    path('dashboard', dashboard, name='dashboard'),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

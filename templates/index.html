@@ -19,6 +19,20 @@
     {% block content %}
     
     {% endblock %}
+    <!-- <br>
+    <br>
+    <br>
+
+    {% if user.is_authenticated %}
+    <center>
+      <p class="card-text"><small class="text-muted"><a href="{% url 'logout' %}" style="color: grey">logout?</a></small></p>
+    </center>
+    {% endif %} -->
+
+    {% if user.is_authenticated %}
+        <p style=" position: absolute; bottom: 0; left: 0; width: 100%; text-align: center;">Hallo, {{ user }}! <a href="{% url 'logout' %}" style="color: grey">logout?</a></p>
+    {% endif %}
+
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 </body>
 </html>

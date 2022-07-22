@@ -4,6 +4,8 @@ from .forms import CommentForm
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 
 # Create your views here.
 
@@ -25,21 +27,21 @@ def thoughts(request):
 
 def thought(request, slug):
     thought=Post.objects.get(slug=slug)
-    template=render_to_string('email_template.html')
+    # template=render_to_string('email_template.html')
     if request.method=='POST':
-        email = EmailMessage(
-            'Thanks for your response.',
-            template,
-            settings.EMAIL_HOST_USER,
-            ['ramareksotinoyo@gmail.com']
-            )
+        # email = EmailMessage(
+        #     'Thanks for your response.',
+        #     template,
+        #     settings.EMAIL_HOST_USER,
+        #     ['ramareksotinoyo@gmail.com']
+        #     )
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = thought
             comment.save()
-            email.fail_silently=False
-            email.send()
+            # email.fail_silently=False
+            # email.send()
             return redirect('thought', slug=thought.slug)
     else:
         form=CommentForm()    
@@ -47,3 +49,29 @@ def thought(request, slug):
 
 def login(request):
     return render(request, 'login.html') 
+
+def register(request):
+    if request.POST :
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Account created successfully')
+            return redirect('register')
+        else:
+            messages.error(request, 'Invalid form')
+            return redirect('register')
+    else:
+        form = UserCreationForm()
+        context = {
+            'form': form
+        }
+    return render(request, 'register.html', context)
+
+def dashboard(request):
+    posts = Post.objects.all()
+    total = posts.count()
+    context = {
+        'posts': posts,
+        'total': total
+    }
+    return render(request, 'dashboard.html', context)
